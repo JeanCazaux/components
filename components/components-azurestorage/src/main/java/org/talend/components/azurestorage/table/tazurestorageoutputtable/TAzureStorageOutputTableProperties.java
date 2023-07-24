@@ -25,6 +25,7 @@ import org.apache.avro.SchemaBuilder;
 import org.talend.components.api.component.ISchemaListener;
 import org.talend.components.api.component.PropertyPathConnector;
 import org.talend.components.azurestorage.table.AzureStorageTableProperties;
+import org.talend.components.common.avro.AvroTool;
 import org.talend.daikon.avro.AvroUtils;
 import org.talend.daikon.avro.SchemaConstants;
 import org.talend.daikon.properties.presentation.Form;
@@ -181,8 +182,7 @@ public class TAzureStorageOutputTableProperties extends AzureStorageTablePropert
 
         List<Schema.Field> copyFieldList = new ArrayList<>();
         for (Schema.Field se : metadataSchema.getFields()) {
-            Schema.Field field = new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal(), se.order());
-            field.getObjectProps().putAll(se.getObjectProps());
+            Schema.Field field = AvroTool.cloneAvroFieldWithOrder(se);
             for (Map.Entry<String, Object> entry : se.getObjectProps().entrySet()) {
                 field.addProp(entry.getKey(), entry.getValue());
             }

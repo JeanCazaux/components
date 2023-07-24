@@ -26,6 +26,7 @@ import java.util.Set;
 import org.apache.avro.Schema;
 import org.talend.components.api.component.ISchemaListener;
 import org.talend.components.api.component.PropertyPathConnector;
+import org.talend.components.common.avro.AvroTool;
 import org.talend.components.salesforce.SalesforceBulkProperties;
 import org.talend.components.salesforce.SalesforceConnectionProperties;
 import org.talend.components.salesforce.SalesforceOutputProperties;
@@ -198,8 +199,7 @@ public class TSalesforceBulkExecProperties extends SalesforceOutputProperties {
 
         List<Schema.Field> copyFieldList = new ArrayList<>();
         for (Schema.Field se : metadataSchema.getFields()) {
-            Schema.Field field = new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal(), se.order());
-            field.getObjectProps().putAll(se.getObjectProps());
+            Schema.Field field = AvroTool.cloneAvroFieldWithOrder(se);
             for (Map.Entry<String, Object> entry : se.getObjectProps().entrySet()) {
                 field.addProp(entry.getKey(), entry.getValue());
             }

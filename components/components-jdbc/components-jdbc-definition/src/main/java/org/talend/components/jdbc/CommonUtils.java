@@ -35,6 +35,7 @@ import org.talend.components.api.exception.ComponentException;
 import org.talend.components.api.properties.ComponentProperties;
 import org.talend.components.api.properties.ComponentReferenceProperties;
 import org.talend.components.api.properties.ComponentReferenceProperties.ReferenceType;
+import org.talend.components.common.avro.AvroTool;
 import org.talend.components.common.config.jdbc.Dbms;
 import org.talend.components.common.config.jdbc.MappingFileLoader;
 import org.talend.components.jdbc.module.DBTypes;
@@ -195,8 +196,7 @@ public class CommonUtils {
         	if(moreFieldNames.contains(se.name())) {
         		continue;
         	}
-            Schema.Field field = new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal(), se.order());
-            field.getObjectProps().putAll(se.getObjectProps());
+            Schema.Field field = AvroTool.cloneAvroFieldWithOrder(se);
             for (Map.Entry<String, Object> entry : se.getObjectProps().entrySet()) {
                 field.addProp(entry.getKey(), entry.getValue());
             }

@@ -20,6 +20,9 @@ import java.util.Set;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.generic.IndexedRecord;
+
+import org.talend.components.common.avro.AvroTool;
+
 import org.talend.daikon.avro.AvroUtils;
 import org.talend.daikon.avro.SchemaConstants;
 import org.talend.daikon.avro.converter.AvroConverter;
@@ -71,8 +74,7 @@ public class BulkResultAdapterFactory implements IndexedRecordConverter<BulkResu
                 fields.add(field);
             }
             for (Schema.Field se : schema.getFields()) {
-                Schema.Field field = new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal(), se.order());
-                field.getObjectProps().putAll(se.getObjectProps());
+                Schema.Field field = AvroTool.cloneAvroFieldWithOrder(se);
                 for (Map.Entry<String, Object> entry : se.getObjectProps().entrySet()) {
                     field.addProp(entry.getKey(), entry.getValue());
                 }

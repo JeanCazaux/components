@@ -73,7 +73,7 @@ public class GenericAvroRegistry extends AvroRegistry {
             if (null == fieldDefault) {
                 builder = builder.name(field.name()).type(fieldSchema).noDefault();
             } else {
-                builder = builder.name(field.name()).type(fieldSchema).withDefault(fieldDefault);
+                builder = builder.name(field.name()).notValidatingDefaults().type(fieldSchema).withDefault(fieldDefault);
             }
         }
         return builder.endRecord();

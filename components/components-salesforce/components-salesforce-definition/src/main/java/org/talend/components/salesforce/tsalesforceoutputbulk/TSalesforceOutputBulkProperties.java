@@ -77,7 +77,7 @@ public class TSalesforceOutputBulkProperties extends BulkFileProperties {
 
     protected List<String> getFieldNames(Property schema) {
         String sJson = schema.getStringValue();
-        Schema s = new Schema.Parser().parse(sJson);
+        Schema s = new Schema.Parser().setValidateDefaults(false).parse(sJson);
         List<String> fieldNames = new ArrayList<>();
         for (Schema.Field f : s.getFields()) {
             fieldNames.add(f.name());

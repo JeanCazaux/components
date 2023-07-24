@@ -25,6 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.talend.components.api.container.RuntimeContainer;
 import org.talend.components.api.exception.ComponentException;
+import org.talend.components.common.avro.AvroTool;
+import org.talend.components.salesforce.soql.FieldDescription;
+import org.talend.components.salesforce.soql.SoqlQuery;
 import org.talend.components.salesforce.tsalesforceinput.TSalesforceInputProperties;
 import org.talend.daikon.avro.AvroUtils;
 import org.talend.daikon.avro.SchemaConstants;
@@ -72,14 +75,10 @@ public class SalesforceInputReader extends SalesforceReader<IndexedRecord> {
                         }
                     }
 
-                    List<Schema.Field> copyFieldList = new ArrayList<>();
-                    for (String columnName : columnsName) {
-                        Schema.Field se = querySchema.getField(columnName);
-                        if (se != null) {
-                            Schema.Field field = new Schema.Field(se.name(), se.schema(), se.doc(), se.defaultVal());
-                            Map<String, Object> fieldProps = se.getObjectProps();
-                            for (String propName : fieldProps.keySet()) {
-                                Object propValue = fieldProps.get(propName);
+                        Schema.Field field = AvroTool.cloneAvroFieldWithCustomName(schemaField, fullName);
+                        Map<String, Object> props = schemaField.getObjectProps();
+                        for (String propName : props.keySet()) {
+                            Object propValue = props.get(propName);
                                 if (propValue != null) {
                                     field.addProp(propName, propValue);
                                 }
@@ -90,7 +89,9 @@ public class SalesforceInputReader extends SalesforceReader<IndexedRecord> {
                     Map<String, Object> objectProps = querySchema.getObjectProps();
                     querySchema = Schema.createRecord(querySchema.getName(), querySchema.getDoc(), querySchema.getNamespace(),
                             querySchema.isError());
-                    querySchema.getObjectProps().putAll(objectProps);
+                    for (Map.Entry<String, Object> entry : objectProps.entrySet()) {
+                        querySchema.addProp(entry.getKey(), entry.getValue());
+                    }
                     querySchema.setFields(copyFieldList);
                 }
             }

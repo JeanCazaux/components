@@ -66,8 +66,7 @@ public class SalesforceAvroRegistryString extends AvroRegistry {
                 continue;
             }
 
-            Schema.Field avroField = new Schema.Field(field.getName(), salesforceField2AvroTypeSchema(field), null,
-                    field.getDefaultValueFormula());
+            Schema.Field avroField = new Schema.Field(field.getName(), salesforceField2AvroTypeSchema(field), null, null);
 
             Schema avroFieldSchema = avroField.schema();
             if (avroFieldSchema.getType() == Schema.Type.UNION) {
@@ -112,8 +111,8 @@ public class SalesforceAvroRegistryString extends AvroRegistry {
             default:
                 break;
             }
-            if (avroField.defaultVal() != null) {
-                avroField.addProp(SchemaConstants.TALEND_COLUMN_DEFAULT, String.valueOf(avroField.defaultVal()));
+            if (field.getDefaultValueFormula() != null) {
+                avroField.addProp(SchemaConstants.TALEND_COLUMN_DEFAULT, field.getDefaultValueFormula());
             }
             fields.add(avroField);
         }

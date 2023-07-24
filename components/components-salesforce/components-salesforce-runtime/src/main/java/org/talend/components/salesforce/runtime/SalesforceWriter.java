@@ -37,6 +37,7 @@ import org.talend.components.api.component.runtime.WriteOperation;
 import org.talend.components.api.component.runtime.WriterWithFeedback;
 import org.talend.components.api.container.RuntimeContainer;
 import org.talend.components.api.exception.ComponentException;
+import org.talend.components.common.avro.AvroTool;
 import org.talend.components.salesforce.SalesforceOutputProperties;
 import org.talend.components.salesforce.SalesforceOutputProperties.OutputAction;
 import org.talend.components.salesforce.runtime.common.ConnectionHolder;
@@ -482,12 +483,10 @@ final class SalesforceWriter implements WriterWithFeedback<Result, IndexedRecord
                 Schema.Field idField = outSchema.getField(TSalesforceOutputProperties.FIELD_SALESFORCE_ID);
                 Schema.Field statusField = outSchema.getField(TSalesforceOutputProperties.FIELD_STATUS);
                 if (idField != null) {
-                    addedFields.add(
-                            new Schema.Field(idField.name(), idField.schema(), idField.doc(), idField.defaultVal()));
+                    addedFields.add(AvroTool.cloneAvroField(idField));
                 }
                 if (statusField != null) {
-                    addedFields.add(new Schema.Field(statusField.name(), statusField.schema(), statusField.doc(),
-                            statusField.defaultVal()));
+                    addedFields.add(AvroTool.cloneAvroField(statusField));
                 }
                 if (addedFields.size() > 0) {
                     // Append additional fields to the runtime schema
@@ -553,16 +552,13 @@ final class SalesforceWriter implements WriterWithFeedback<Result, IndexedRecord
                     Schema.Field errorField = outSchema.getField(TSalesforceOutputProperties.FIELD_ERROR_FIELDS);
                     Schema.Field errorMsgField = outSchema.getField(TSalesforceOutputProperties.FIELD_ERROR_MESSAGE);
                     if (errorCodeField != null) {
-                        addedFields.add(new Schema.Field(errorCodeField.name(), errorCodeField.schema(),
-                                errorCodeField.doc(), errorCodeField.defaultVal()));
+                        addedFields.add(AvroTool.cloneAvroField(errorCodeField));
                     }
                     if (errorField != null) {
-                        addedFields.add(new Schema.Field(errorField.name(), errorField.schema(), errorField.doc(),
-                                errorField.defaultVal()));
+                        addedFields.add(AvroTool.cloneAvroField(errorField));
                     }
                     if (errorMsgField != null) {
-                        addedFields.add(new Schema.Field(errorMsgField.name(), errorMsgField.schema(),
-                                errorMsgField.doc(), errorMsgField.defaultVal()));
+                        addedFields.add(AvroTool.cloneAvroField(errorMsgField));
                     }
                     if (addedFields.size() > 0) {
                         // Append additional fields to the runtime schema

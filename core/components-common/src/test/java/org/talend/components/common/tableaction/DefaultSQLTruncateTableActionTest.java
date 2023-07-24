@@ -39,7 +39,7 @@ public class DefaultSQLTruncateTableActionTest {
                 .prop(SchemaConstants.TALEND_COLUMN_PRECISION, "38")
                 .prop(SchemaConstants.TALEND_COLUMN_SCALE, "4")
                 .type(AvroUtils._double())
-                .withDefault("0")
+                .withDefault(0)
                 .name("updated")
                 .type(AvroUtils._logicalTimestamp())
                 .noDefault()

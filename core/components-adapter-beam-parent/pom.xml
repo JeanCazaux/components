@@ -13,6 +13,14 @@
     <packaging>pom</packaging>
     <name>Component API - Beam Parent POM</name>
 
+    <properties>
+        <avro.version>1.11.5</avro.version>
+        <beam.version>2.33.0</beam.version>
+        <spark.version>2.4.7.7.1.7.1055-1</spark.version>
+        <hadoop.version>3.2.4</hadoop.version>
+        <libthrift.version>0.15.0</libthrift.version>
+    </properties>
+
     <!-- Necessary if you want to compile with a SNAPSHOT of beam. -->
     <repositories>
         <repository>

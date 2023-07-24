@@ -162,6 +162,11 @@ public class AzureStorageComponentListProperties extends ComponentPropertiesImpl
                 tableProps.tableName.setValue(tableId);
                 try {
                     Schema schema = AzureStorageTableSourceOrSink.getSchema(null, connection, tableId);
+                    if(schema != null) {
+                        Schema.Parser parser = new Schema.Parser().setValidateDefaults(false);
+                        final Schema parse = parser.parse(schema.toString().replaceFirst("schemaInfered",formatSchemaName(tableId)));
+                        tableProps.schema.schema.setValue(parse);
+                    }else{
                     tableProps.schema.schema.setValue(schema);
                     repo.storeProperties(tableProps, formatSchemaName(tableId), repoLoc, "schema.schema");
                 } catch (IOException e) {

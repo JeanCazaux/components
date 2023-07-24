@@ -27,6 +27,8 @@ import org.talend.daikon.avro.converter.AvroConverter;
 import org.talend.daikon.avro.converter.IndexedRecordConverter;
 import org.talend.daikon.exception.TalendRuntimeException;
 
+import org.talend.components.common.avro.AvroTool;
+
 /**
  * One-way converter, which converts {@link ResultSet} to String {@link IndexedRecord}, i.e. each field in
  * the record will be of String type (also nullable in case appropriate specification schema field is nullable).
@@ -99,7 +101,7 @@ public class ResultSetStringRecordConverter implements IndexedRecordConverter<Re
             if (nullable) {
                 stringSchema = AvroUtils.wrapAsNullable(stringSchema);
             }
-            Schema.Field stringField = new Schema.Field(specField.name(), stringSchema, specField.doc(), specField.defaultVal(), specField.order());
+            Schema.Field stringField = AvroTool.cloneAvroFieldWithCustomSchemaAndOrder(specField, stringSchema);
             for (Map.Entry<String, Object> entry : specField.getObjectProps().entrySet()) {
                 stringField.addProp(entry.getKey(), entry.getValue());
             }

@@ -93,7 +93,7 @@ public class BulkFileWriter implements Writer<Result> {
         }
 
         if (!headerIsReady && (!isAppend || fileIsEmpty)) {
-            Schema schema = new Schema.Parser().parse(bulkProperties.schema.schema.getStringValue());
+            Schema schema = new Schema.Parser().setValidateDefaults(false).parse(bulkProperties.schema.schema.getStringValue());
 
             if (AvroUtils.isIncludeAllFields(schema) && (datum instanceof org.apache.avro.generic.IndexedRecord)) {
                 org.apache.avro.generic.IndexedRecord record = (org.apache.avro.generic.IndexedRecord) datum;

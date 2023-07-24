@@ -101,7 +101,7 @@ public class SalesforceAvroRegistry extends AvroRegistry {
         List<Schema.Field> fields = new ArrayList<>();
         for (Field field : in.getFields()) {
 
-            Schema.Field avroField = new Schema.Field(field.getName(), inferSchema(field), null, field.getDefaultValueFormula());
+            Schema.Field avroField = new Schema.Field(field.getName(), inferSchema(field), null, null);
             // Add some Talend6 custom properties to the schema.
             Schema avroFieldSchema = avroField.schema();
             if (avroFieldSchema.getType() == Schema.Type.UNION) {
@@ -147,9 +147,9 @@ public class SalesforceAvroRegistry extends AvroRegistry {
             default:
                 break;
             }
-            if (avroField.defaultVal() != null) {
+            if (field.getDefaultValueFormula() != null) {
                 // FIXME really needed as Schema.Field has ability to store default value
-                avroField.addProp(SchemaConstants.TALEND_COLUMN_DEFAULT, String.valueOf(avroField.defaultVal()));
+                avroField.addProp(SchemaConstants.TALEND_COLUMN_DEFAULT, field.getDefaultValueFormula());
             }
             fields.add(avroField);
         }

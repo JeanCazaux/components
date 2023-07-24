@@ -140,7 +140,7 @@ public class SchemaGeneratorUtils {
                 // If the field does not exist in the inputSchema, create a new element as a String Field
                 Schema outputHierarchicalSchema =
                         SchemaBuilder.builder().unionOf().nullType().and().stringType().endUnion();
-                tree.get(currentParrentValue).add(new Field(currentElement, outputHierarchicalSchema, "", ""));
+                tree.get(currentParrentValue).add(new Field(currentElement, outputHierarchicalSchema, "", null));
             }
         }
         return tree;
@@ -165,7 +165,7 @@ public class SchemaGeneratorUtils {
                     if (elementName.contains(".")) {
                         elementName = StringUtils.substringAfterLast(elementName, ".");
                     }
-                    fieldList.add(new Field(elementName, subElementSchema, "", ""));
+                    fieldList.add(new Field(elementName, subElementSchema, "", null));
                 } else if (treeElement instanceof Field) {
                     // field element, adding it to the field list.
                     fieldList.add((Field) treeElement);
@@ -245,7 +245,7 @@ public class SchemaGeneratorUtils {
                 if (unwrappedSchema.getType().equals(Type.RECORD)) {
                     Schema subElementSchema = extractValues(unwrappedSchema, keyPaths, newPath);
                     if (subElementSchema != null) {
-                        fieldList.add(new Field(field.name(), subElementSchema, "", ""));
+                        fieldList.add(new Field(field.name(), subElementSchema, "", null));
                     }
                 } else {
                     // element add it directly
@@ -277,9 +277,9 @@ public class SchemaGeneratorUtils {
         List<Schema.Field> fieldList = new ArrayList<>();
 
         Schema keySchema = extractKeys(inputSchema, keyPaths);
-        fieldList.add(new Field(RECORD_KEY_PREFIX, keySchema, "", ""));
+        fieldList.add(new Field(RECORD_KEY_PREFIX, keySchema, "", null));
         Schema valueSchema = extractValues(inputSchema, keyPaths);
-        fieldList.add(new Field(RECORD_VALUE_PREFIX, valueSchema, "", ""));
+        fieldList.add(new Field(RECORD_VALUE_PREFIX, valueSchema, "", null));
         return Schema.createRecord(RECORD_KEYVALUE_PREFIX, null, null, false, fieldList);
     }
 
@@ -299,7 +299,7 @@ public class SchemaGeneratorUtils {
             if (valueSchema.getField(field.name()) != null) {
                 // element in both key and value => create sub element
                 fieldList.add(new Field(field.name(),
-                        mergeKeyValues(field.schema(), valueSchema.getField(field.name()).schema()), "", ""));
+                        mergeKeyValues(field.schema(), valueSchema.getField(field.name()).schema()), "", null));
             } else {
                 // Element only present in the key
                 fieldList.add(new Field(field.name(), field.schema(), field.doc(), field.defaultVal()));

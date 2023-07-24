@@ -33,6 +33,9 @@
         <talend.releases.repo>https://artifacts-oss.talend.com/nexus/content/repositories/TalendOpenSourceRelease/
         </talend.releases.repo>
 
+        <components.version>0.38.0-SNAPSHOT</components.version>
+        <daikon.version>7.1.16</daikon.version>
+
         <!-- plugin versions -->
         <tycho-p2-extras-plugin.version>0.26.0</tycho-p2-extras-plugin.version>
         <docker-maven-plugin.version>0.34.1</docker-maven-plugin.version>

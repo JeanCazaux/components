@@ -67,8 +67,8 @@ public class SchemaGeneratorUtilsTest {
 
         Schema kvSchema = SchemaGeneratorUtils.extractKeyValues(null, keyList);
         String kvSchemaExpected = ("{'type':'record','name':'keyvalue','fields':["
-                + "{'name':'key','type':{'type':'record','name':'EmptySchema','fields':[]},'doc':'','default':''},"
-                + "{'name':'value','type':'EmptySchema','doc':'','default':''}]}").replace('\'', '"');
+                + "{'name':'key','type':{'type':'record','name':'EmptySchema','fields':[]},'doc':''},"
+                + "{'name':'value','type':'EmptySchema','doc':''}]}").replace('\'', '"');
         System.out.println(kvSchema);
         assertThat(kvSchema.toString(), is(kvSchemaExpected));
 
@@ -177,7 +177,7 @@ public class SchemaGeneratorUtilsTest {
         String keyOutput = ("{'type':'record','name':'inputRow','fields':["
                 + "{'name':'c','type':['null','string'],'default':null},"
                 + "{'name':'a','type':['null','string'],'default':null},"
-                + "{'name':'d','type':['null','string'],'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "{'name':'d','type':['null','string'],'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(keyOutput, SchemaGeneratorUtils.extractKeys(inputRecord.getSchema(), keyList).toString());
 
         String valueOutput = ("{'type':'record','name':'value_inputRow','fields':["
@@ -188,7 +188,7 @@ public class SchemaGeneratorUtilsTest {
         assertEquals(generateKVOutput(keyOutput, valueOutput), kvSchema.toString());
 
         String mergedSchema = ("{'type':'record','name':'inputRow','fields':[{'name':'c','type':['null','string'],'default':null},"
-                + "{'name':'a','type':['null','string'],'default':null},{'name':'d','type':['null','string'],'doc':'','default':''},"
+                + "{'name':'a','type':['null','string'],'default':null},{'name':'d','type':['null','string'],'doc':''},"
                 + "{'name':'b','type':['null','string'],'default':null}]}").replaceAll("\\'", "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
@@ -274,7 +274,7 @@ public class SchemaGeneratorUtilsTest {
                 + "{'name':'data','type':{'type':'record','name':'value_data','fields':["
                 + "{'name':'a','type':['null','string'],'default':null},"
                 + "{'name':'b','type':['null','string'],'default':null},"
-                + "{'name':'c','type':['null','string'],'default':null}]},'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "{'name':'c','type':['null','string'],'default':null}]},'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(valueOutput, SchemaGeneratorUtils.extractValues(inputRecord.getSchema(), keyList).toString());
 
         Schema kvSchema = SchemaGeneratorUtils.extractKeyValues(inputRecord.getSchema(), keyList);
@@ -282,7 +282,7 @@ public class SchemaGeneratorUtilsTest {
 
         String mergedSchema = ("{'type':'record','name':'inputRow','fields':[{'name':'name','type':['null','string'],'default':null},"
                 + "{'name':'data','type':{'type':'record','name':'value_data','fields':[{'name':'a','type':['null','string'],'default':null},"
-                + "{'name':'b','type':['null','string'],'default':null},{'name':'c','type':['null','string'],'default':null}]},'doc':'','default':''}]}")
+                + "{'name':'b','type':['null','string'],'default':null},{'name':'c','type':['null','string'],'default':null}]},'doc':''}]}")
                         .replaceAll("\\'", "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
@@ -316,13 +316,13 @@ public class SchemaGeneratorUtilsTest {
                 + "{'name':'name','type':['null','string'],'default':null}," + "{'name':'data','type':{'type':'record','fields':["
                 + "{'name':'c','type':['null','string'],'default':null},"
                 + "{'name':'a','type':['null','string'],'default':null},"
-                + "{'name':'d','type':['null','string'],'doc':'','default':''}]}," + "'doc':'','default':''}]}").replaceAll("\\'",
+                + "{'name':'d','type':['null','string'],'doc':''}]}," + "'doc':''}]}").replaceAll("\\'",
                         "\"");
         assertEquals(keyOutput, SchemaGeneratorUtils.extractKeys(inputRecord.getSchema(), keyList).toString());
 
         String valueOutput = ("{'type':'record','name':'value_inputRow','fields':["
                 + "{'name':'data','type':{'type':'record','name':'value_data','fields':["
-                + "{'name':'b','type':['null','string'],'default':null}]}," + "'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "{'name':'b','type':['null','string'],'default':null}]}," + "'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(valueOutput, SchemaGeneratorUtils.extractValues(inputRecord.getSchema(), keyList).toString());
 
         Schema kvSchema = SchemaGeneratorUtils.extractKeyValues(inputRecord.getSchema(), keyList);
@@ -330,8 +330,8 @@ public class SchemaGeneratorUtilsTest {
 
         String mergedSchema = ("{'type':'record','name':'inputRow','fields':[{'name':'name','type':['null','string'],'default':null},"
                 + "{'name':'data','type':{'type':'record','fields':[{'name':'c','type':['null','string'],'default':null},"
-                + "{'name':'a','type':['null','string'],'default':null},{'name':'d','type':['null','string'],'doc':'','default':''},"
-                + "{'name':'b','type':['null','string'],'default':null}]},'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "{'name':'a','type':['null','string'],'default':null},{'name':'d','type':['null','string'],'doc':''},"
+                + "{'name':'b','type':['null','string'],'default':null}]},'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
 
@@ -357,14 +357,14 @@ public class SchemaGeneratorUtilsTest {
         String keyOutput = ("{'type':'record','name':'InRecord','fields':[" + "{'name':'a1','type':'string'},"
                 + "{'name':'B','type':{'type':'record','name':'BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'CRecord','fields':["
-                + "{'name':'D','type':{'type':'record','name':'DRecord','fields':[{'name':'d1','type':'string'}]},'doc':'','default':''},"
-                + "{'name':'c1','type':'string'}]},'doc':'','default':''}]},'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "{'name':'D','type':{'type':'record','name':'DRecord','fields':[{'name':'d1','type':'string'}]},'doc':''},"
+                + "{'name':'c1','type':'string'}]},'doc':''}]},'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(keyOutput, SchemaGeneratorUtils.extractKeys(inputRecord.getSchema(), keyList).toString());
 
         String valueOutput = ("{'type':'record','name':'value_InRecord','fields':["
                 + "{'name':'B','type':{'type':'record','name':'value_BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'value_CRecord','fields':["
-                + "{'name':'c2','type':'string'}]},'doc':'','default':''}]},'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "{'name':'c2','type':'string'}]},'doc':''}]},'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(valueOutput, SchemaGeneratorUtils.extractValues(inputRecord.getSchema(), keyList).toString());
 
         Schema kvSchema = SchemaGeneratorUtils.extractKeyValues(inputRecord.getSchema(), keyList);
@@ -373,8 +373,8 @@ public class SchemaGeneratorUtilsTest {
         String mergedSchema = ("{'type':'record','name':'InRecord','fields':[{'name':'a1','type':'string'},"
                 + "{'name':'B','type':{'type':'record','name':'BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'CRecord','fields':["
-                + "{'name':'D','type':{'type':'record','name':'DRecord','fields':[{'name':'d1','type':'string'}]},'doc':'','default':''},"
-                + "{'name':'c1','type':'string'},{'name':'c2','type':'string'}]},'doc':'','default':''}]},'doc':'','default':''}]}")
+                + "{'name':'D','type':{'type':'record','name':'DRecord','fields':[{'name':'d1','type':'string'}]},'doc':''},"
+                + "{'name':'c1','type':'string'},{'name':'c2','type':'string'}]},'doc':''}]},'doc':''}]}")
                         .replaceAll("\\'", "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
@@ -460,7 +460,7 @@ public class SchemaGeneratorUtilsTest {
                 + "{'name':'d1','type':'string'}]}},{'name':'c1','type':'string'},{'name':'c2','type':'string'}]}},"
                 + "{'name':'E','type':{'type':'record','name':'ERecord','fields':["
                 + "{'name':'F','type':{'type':'record','name':'FRecord','fields':[{'name':'f1','type':'string'}]}},"
-                + "{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':'','default':''}]}").replaceAll("\\'",
+                + "{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':''}]}").replaceAll("\\'",
                         "\"");
         assertEquals(keyOutput, SchemaGeneratorUtils.extractKeys(inputRecord.getSchema(), keyList).toString());
 
@@ -477,7 +477,7 @@ public class SchemaGeneratorUtilsTest {
                 + "{'name':'c1','type':'string'},{'name':'c2','type':'string'}]}},"
                 + "{'name':'E','type':{'type':'record','name':'ERecord','fields':["
                 + "{'name':'F','type':{'type':'record','name':'FRecord','fields':[{'name':'f1','type':'string'}]}},"
-                + "{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':'','default':''}]}").replaceAll("\\'",
+                + "{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':''}]}").replaceAll("\\'",
                         "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
@@ -505,11 +505,11 @@ public class SchemaGeneratorUtilsTest {
 
         String keyOutput = ("{'type':'record','name':'InRecord','fields':[{'name':'B','type':{'type':'record','name':'BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'CRecord','fields':["
-                + "{'name':'c1','type':'string'},{'name':'c2','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''},"
-                + "{'name':'b1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''},{'name':'a1','type':['null','string'],'doc':'','default':''},"
-                + "{'name':'D','type':{'type':'record','fields':[{'name':'d1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''},"
+                + "{'name':'c1','type':'string'},{'name':'c2','type':['null','string'],'doc':''}]},'doc':''},"
+                + "{'name':'b1','type':['null','string'],'doc':''}]},'doc':''},{'name':'a1','type':['null','string'],'doc':''},"
+                + "{'name':'D','type':{'type':'record','fields':[{'name':'d1','type':['null','string'],'doc':''}]},'doc':''},"
                 + "{'name':'E','type':{'type':'record','fields':[{'name':'F','type':{'type':'record','fields':["
-                + "{'name':'f1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''}]},'doc':'','default':''}]}")
+                + "{'name':'f1','type':['null','string'],'doc':''}]},'doc':''}]},'doc':''}]}")
                         .replaceAll("\\'", "\"");
         assertEquals(keyOutput, SchemaGeneratorUtils.extractKeys(inputRecord.getSchema(), keyList).toString());
 
@@ -521,12 +521,12 @@ public class SchemaGeneratorUtilsTest {
 
         String mergedSchema = ("{'type':'record','name':'InRecord','fields':[{'name':'B','type':{'type':'record','name':'BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'CRecord','fields':[{'name':'c1','type':'string'},"
-                + "{'name':'c2','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''},"
-                + "{'name':'b1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''},"
-                + "{'name':'a1','type':['null','string'],'doc':'','default':''},"
-                + "{'name':'D','type':{'type':'record','fields':[{'name':'d1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''},"
+                + "{'name':'c2','type':['null','string'],'doc':''}]},'doc':''},"
+                + "{'name':'b1','type':['null','string'],'doc':''}]},'doc':''},"
+                + "{'name':'a1','type':['null','string'],'doc':''},"
+                + "{'name':'D','type':{'type':'record','fields':[{'name':'d1','type':['null','string'],'doc':''}]},'doc':''},"
                 + "{'name':'E','type':{'type':'record','fields':[{'name':'F','type':{'type':'record','fields':["
-                + "{'name':'f1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''}]},'doc':'','default':''}]}")
+                + "{'name':'f1','type':['null','string'],'doc':''}]},'doc':''}]},'doc':''}]}")
                         .replaceAll("\\'", "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
@@ -559,25 +559,25 @@ public class SchemaGeneratorUtilsTest {
         String keyOutput = ("{'type':'record','name':'InRecord','fields':[" + "{'name':'a1','type':'string'},"
                 + "{'name':'B','type':{'type':'record','name':'BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'CRecord','fields':["
-                + "{'name':'D','type':{'type':'record','name':'DRecord','fields':[{'name':'d1','type':'string'}]},'doc':'','default':''},"
-                + "{'name':'c1','type':'string'}]},'doc':'','default':''},"
+                + "{'name':'D','type':{'type':'record','name':'DRecord','fields':[{'name':'d1','type':'string'}]},'doc':''},"
+                + "{'name':'c1','type':'string'}]},'doc':''},"
                 + "{'name':'E','type':{'type':'record','name':'ERecord','fields':["
                 + "{'name':'F','type':{'type':'record','name':'FRecord','fields':[{'name':'f1','type':'string'}]}},"
-                + "{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':'','default':''},"
+                + "{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':''},"
                 + "{'name':'G','type':{'type':'record','name':'GRecord','fields':["
-                + "{'name':'H','type':{'type':'record','name':'HRecord','fields':[{'name':'h1','type':'string'}]},'doc':'','default':''}]},'doc':'','default':''},"
-                + "{'name':'a2','type':['null','string'],'doc':'','default':''},"
-                + "{'name':'I','type':{'type':'record','fields':[{'name':'i1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''}]}")
+                + "{'name':'H','type':{'type':'record','name':'HRecord','fields':[{'name':'h1','type':'string'}]},'doc':''}]},'doc':''},"
+                + "{'name':'a2','type':['null','string'],'doc':''},"
+                + "{'name':'I','type':{'type':'record','fields':[{'name':'i1','type':['null','string'],'doc':''}]},'doc':''}]}")
                         .replaceAll("\\'", "\"");
         assertEquals(keyOutput, SchemaGeneratorUtils.extractKeys(inputRecord.getSchema(), keyList).toString());
 
         String valueOutput = ("{'type':'record','name':'value_InRecord','fields':[{'name':'B','type':{'type':'record','name':'value_BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'value_CRecord','fields':["
-                + "{'name':'c2','type':'string'}]},'doc':'','default':''}]},'doc':'','default':''},"
+                + "{'name':'c2','type':'string'}]},'doc':''}]},'doc':''},"
                 + "{'name':'G','type':{'type':'record','name':'value_GRecord','fields':["
                 + "{'name':'H','type':{'type':'record','name':'value_HRecord','fields':["
                 + "{'name':'I','type':{'type':'record','name':'value_IRecord','fields':[{'name':'i1','type':'string'}]},"
-                + "'doc':'','default':''}]},'doc':'','default':''}]}," + "'doc':'','default':''}]}").replaceAll("\\'", "\"");
+                + "'doc':''}]},'doc':''}]}," + "'doc':''}]}").replaceAll("\\'", "\"");
         assertEquals(valueOutput, SchemaGeneratorUtils.extractValues(inputRecord.getSchema(), keyList).toString());
 
         Schema kvSchema = SchemaGeneratorUtils.extractKeyValues(inputRecord.getSchema(), keyList);
@@ -587,25 +587,25 @@ public class SchemaGeneratorUtilsTest {
                 + "{'name':'B','type':{'type':'record','name':'BRecord','fields':["
                 + "{'name':'C','type':{'type':'record','name':'CRecord','fields':["
                 + "{'name':'D','type':{'type':'record','name':'DRecord','fields':["
-                + "{'name':'d1','type':'string'}]},'doc':'','default':''},{'name':'c1','type':'string'},"
-                + "{'name':'c2','type':'string'}]},'doc':'','default':''},"
+                + "{'name':'d1','type':'string'}]},'doc':''},{'name':'c1','type':'string'},"
+                + "{'name':'c2','type':'string'}]},'doc':''},"
                 + "{'name':'E','type':{'type':'record','name':'ERecord','fields':["
                 + "{'name':'F','type':{'type':'record','name':'FRecord','fields':["
-                + "{'name':'f1','type':'string'}]}},{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':'','default':''},"
+                + "{'name':'f1','type':'string'}]}},{'name':'e1','type':'string'},{'name':'e2','type':'string'}]}}]},'doc':''},"
                 + "{'name':'G','type':{'type':'record','name':'GRecord','fields':["
                 + "{'name':'H','type':{'type':'record','name':'HRecord','fields':["
                 + "{'name':'h1','type':'string'},{'name':'I','type':{'type':'record','name':'value_IRecord','fields':["
-                + "{'name':'i1','type':'string'}]},'doc':'','default':''}]},'doc':'','default':''}]},'doc':'','default':''},"
-                + "{'name':'a2','type':['null','string'],'doc':'','default':''},"
-                + "{'name':'I','type':{'type':'record','fields':[{'name':'i1','type':['null','string'],'doc':'','default':''}]},'doc':'','default':''}]}")
+                + "{'name':'i1','type':'string'}]},'doc':''}]},'doc':''}]},'doc':''},"
+                + "{'name':'a2','type':['null','string'],'doc':''},"
+                + "{'name':'I','type':{'type':'record','fields':[{'name':'i1','type':['null','string'],'doc':''}]},'doc':''}]}")
                         .replaceAll("\\'", "\"");
         assertEquals(mergedSchema, SchemaGeneratorUtils.mergeKeyValues(kvSchema).toString());
     }
 
     private String generateKVOutput(String keyOutput, String valueOutput) {
         return ("{'type':'record','name':'keyvalue','fields':[{'name':'key','type':" + keyOutput
-                + ",'doc':'','default':''},"
-                + "{'name':'value','type':" + valueOutput + ",'doc':'','default':''}]}") //
+                + ",'doc':''},"
+                + "{'name':'value','type':" + valueOutput + ",'doc':''}]}") //
                         .replaceAll("\\'", "\"");
     }
 }

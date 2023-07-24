@@ -28,6 +28,7 @@ import org.talend.components.api.component.runtime.BoundedSource;
 import org.talend.components.api.container.RuntimeContainer;
 import org.talend.components.api.exception.ComponentException;
 import org.talend.components.api.properties.ComponentProperties;
+import org.talend.components.common.avro.AvroTool;
 import org.talend.components.salesforce.SalesforceConnectionProperties;
 import org.talend.components.salesforce.common.SalesforceRuntimeSourceOrSink;
 import org.talend.components.salesforce.dataprep.SalesforceInputProperties;
@@ -244,9 +245,7 @@ public class SalesforceDataprepSource
             Schema.Field runtimeField = runtimeSchema.getField(fieldDescription.getFullName());
 
             if (runtimeField != null) {
-                Schema.Field newField = new Schema.Field(runtimeField.name(), runtimeField.schema(), runtimeField.doc(),
-                        runtimeField.defaultVal(), runtimeField.order());
-                newField.getObjectProps().putAll(runtimeField.getObjectProps());
+                Schema.Field newField = AvroTool.cloneAvroFieldWithOrder(runtimeField);
                 for (Map.Entry<String, Object> entry : runtimeField.getObjectProps().entrySet()) {
                     newField.addProp(entry.getKey(), entry.getValue());
                 }
