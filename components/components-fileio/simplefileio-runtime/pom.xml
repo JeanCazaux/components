@@ -22,7 +22,7 @@
         <tika.version>2.9.0</tika.version>
         <ow2-asm.version>9.3</ow2-asm.version>
         <poi.version>5.2.2</poi.version>
-        <excel-streaming-reader.version>4.2.1</excel-streaming-reader.version>
+        <excel-streaming-reader.version>4.0.1</excel-streaming-reader.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
         <coverage.sonar.reportRoot>${project.basedir}/..</coverage.sonar.reportRoot>
     </properties>

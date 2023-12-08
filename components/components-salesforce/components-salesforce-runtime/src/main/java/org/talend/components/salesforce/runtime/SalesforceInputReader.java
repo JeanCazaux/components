@@ -75,10 +75,14 @@ public class SalesforceInputReader extends SalesforceReader<IndexedRecord> {
                         }
                     }
 
-                        Schema.Field field = AvroTool.cloneAvroFieldWithCustomName(schemaField, fullName);
-                        Map<String, Object> props = schemaField.getObjectProps();
-                        for (String propName : props.keySet()) {
-                            Object propValue = props.get(propName);
+                    List<Schema.Field> copyFieldList = new ArrayList<>();
+                    for (String columnName : columnsName) {
+                        Schema.Field se = querySchema.getField(columnName);
+                        if (se != null) {
+							Schema.Field field = AvroTool.cloneAvroFieldWithCustomName(se, se.name());
+                            Map<String, Object> fieldProps = se.getObjectProps();
+                            for (String propName : fieldProps.keySet()) {
+                                Object propValue = fieldProps.get(propName);
                                 if (propValue != null) {
                                     field.addProp(propName, propValue);
                                 }
