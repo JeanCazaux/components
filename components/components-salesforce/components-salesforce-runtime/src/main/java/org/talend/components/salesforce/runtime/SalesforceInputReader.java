@@ -26,8 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.talend.components.api.container.RuntimeContainer;
 import org.talend.components.api.exception.ComponentException;
 import org.talend.components.common.avro.AvroTool;
-import org.talend.components.salesforce.soql.FieldDescription;
-import org.talend.components.salesforce.soql.SoqlQuery;
 import org.talend.components.salesforce.tsalesforceinput.TSalesforceInputProperties;
 import org.talend.daikon.avro.AvroUtils;
 import org.talend.daikon.avro.SchemaConstants;
