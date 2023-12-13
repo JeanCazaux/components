@@ -157,19 +157,8 @@
         <log4j.version>1.2.17</log4j.version>
         <marketo-soap-sdk.version>3.1</marketo-soap-sdk.version>
         <mockito-core.version>2.24.0</mockito-core.version>
-        <netty-all.version>4.1.86.Final</netty-all.version>
-        <netty-buffer.version>4.1.86.Final</netty-buffer.version>
-        <netty-codec-http.version>4.1.86.Final</netty-codec-http.version>
-        <netty-codec-http2.version>4.1.86.Final</netty-codec-http2.version>
-        <netty-codec-socks.version>4.1.86.Final</netty-codec-socks.version>
-        <netty-codec.version>4.1.86.Final</netty-codec.version>
-        <netty-common.version>4.1.86.Final</netty-common.version>
-        <netty-handler-proxy.version>4.1.86.Final</netty-handler-proxy.version>
-        <netty-handler.version>4.1.86.Final</netty-handler.version>
-        <netty-resolver.version>4.1.86.Final</netty-resolver.version>
-        <netty-tcnative-boringssl-static.version>2.0.56.Final</netty-tcnative-boringssl-static.version>
-        <netty-transport-native-epoll.version>4.1.86.Final</netty-transport-native-epoll.version>
-        <netty-transport.version>4.1.86.Final</netty-transport.version>
+        <netty4.version>4.1.101.Final</netty4.version>
+        <netty-tcnative-boringssl-static.version>2.0.61.Final</netty-tcnative-boringssl-static.version>
         <netty.version>3.10.6.Final</netty.version>
         <nimbus-jose-jwt.version>9.22</nimbus-jose-jwt.version>
         <okio.version>1.14.0</okio.version>
@@ -762,52 +751,52 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>${netty-all.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-buffer</artifactId>
-                <version>${netty-buffer.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-codec</artifactId>
-                <version>${netty-codec.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-codec-http</artifactId>
-                <version>${netty-codec-http.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-codec-http2</artifactId>
-                <version>${netty-codec-http2.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-codec-socks</artifactId>
-                <version>${netty-codec-socks.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-common</artifactId>
-                <version>${netty-common.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-handler</artifactId>
-                <version>${netty-handler.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-handler-proxy</artifactId>
-                <version>${netty-handler-proxy.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-resolver</artifactId>
-                <version>${netty-resolver.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
@@ -817,12 +806,12 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-transport</artifactId>
-                <version>${netty-transport.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-transport-native-epoll</artifactId>
-                <version>${netty-transport-native-epoll.version}</version>
+                <version>${netty4.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
