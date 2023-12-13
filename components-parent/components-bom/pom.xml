@@ -155,7 +155,7 @@
         <marketo-soap-sdk.version>3.1</marketo-soap-sdk.version>
         <!--3.12.4 will make an strange issue on GoogleDriveDeleteReaderTest, look like a mockito issue-->
         <mockito-core.version>2.24.0</mockito-core.version>
-        <netty4.version>4.1.97.Final</netty4.version>
+        <netty4.version>4.1.101.Final</netty4.version>
         <netty-tcnative-boringssl-static.version>2.0.61.Final</netty-tcnative-boringssl-static.version>
         <netty.version>3.10.6.Final</netty.version>
         <nimbus-jose-jwt.version>9.30.2</nimbus-jose-jwt.version>
